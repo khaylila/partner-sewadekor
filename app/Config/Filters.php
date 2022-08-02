@@ -38,9 +38,13 @@ class Filters extends BaseConfig
      */
     public $globals = [
         'before' => [
+            'session' => ['except' => ['login']],
+            // 'tokens',
+            // 'chain',
             // 'honeypot',
             // 'csrf',
             // 'invalidchars',
+            // 'auth-rates',
         ],
         'after' => [
             'toolbar',
@@ -73,5 +77,11 @@ class Filters extends BaseConfig
      *
      * @var array
      */
-    public $filters = [];
+    public $filters = [
+        'auth-rates' => [
+            'before' => [
+                'login*', 'register', 'auth/*'
+            ]
+        ]
+    ];
 }

@@ -70,10 +70,18 @@ class AuthGroups extends ShieldAuthGroups
         'users.delete'        => 'Can delete existing non-admin users',
         'beta.access'         => 'Can access beta-level features',
         // otherRules
-        'user.createProduct' => 'Can create product',
-        'user.readProduct' => 'Can read product',
-        'user.updateProduct' => 'Can update product',
-        'user.deleteProduct' => 'Can delete product',
+        'superadmin.createAdmin' => 'Can create admin',
+        'superadmin.readAdmin' => 'Can read admin',
+        'superadmin.updateAdmin' => 'Can update admin',
+        'superadmin.deleteAdmin' => 'Can delete admin',
+        'admin.createPartner' => 'Can create partner',
+        'admin.readPartner' => 'Can read partner',
+        'admin.updatePartner' => 'Can update partner',
+        'admin.deletePartner' => 'Can delete partner',
+        'partner.createProduct' => 'Can create product',
+        'partner.readProduct' => 'Can read product',
+        'partner.updateProduct' => 'Can update product',
+        'partner.deleteProduct' => 'Can delete product',
     ];
 
     /**
@@ -84,32 +92,40 @@ class AuthGroups extends ShieldAuthGroups
      */
     public array $matrix = [
         'superadmin' => [
+            'superadmin.*',
             'admin.*',
-            'users.*',
-            'beta.*',
-            'user.*',
+            'partner.*',
+            // 'admin.*',
+            // 'users.*',
+            // 'beta.*',
+            // 'user.*',
         ],
         'admin' => [
-            'admin.access',
-            'users.create',
-            'users.edit',
-            'users.delete',
-            'beta.access',
+            'admin.*',
+            'partner.*',
+            // 'admin.access',
+            // 'users.create',
+            // 'users.edit',
+            // 'users.delete',
+            // 'beta.access',
         ],
         'developer' => [
-            'admin.access',
-            'admin.settings',
-            'users.create',
-            'users.edit',
-            'beta.access',
-            'user.*',
+            'superadmin.*',
+            'admin.*',
+            'partner.*',
+            // 'admin.access',
+            // 'admin.settings',
+            // 'users.create',
+            // 'users.edit',
+            // 'beta.access',
+            // 'user.*',
         ],
-        'user' => [
-            // otherRules
-            'user.*',
-        ],
-        'beta' => [
-            'beta.access',
-        ],
+        // 'user' => [
+        //     // otherRules
+        //     'user.*',
+        // ],
+        // 'beta' => [
+        //     'beta.access',
+        // ],
     ];
 }

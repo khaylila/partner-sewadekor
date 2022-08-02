@@ -2,6 +2,11 @@
 
 namespace Config;
 
+use App\Controllers\Admin;
+use App\Controllers\AuthUser;
+use App\Controllers\Home;
+use CodeIgniter\Shield\Controllers\LoginController;
+
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
 
@@ -11,7 +16,8 @@ if (is_file(SYSTEMPATH . 'Config/Routes.php')) {
     require SYSTEMPATH . 'Config/Routes.php';
 }
 
-service('auth')->routes($routes);
+service('auth')->routes($routes, ['except' => ['login']]);
+// service('auth')->routes($routes);
 
 /*
  * --------------------------------------------------------------------
@@ -37,7 +43,20 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
+// route for login
+$routes->get('login', [AuthUser::class, 'login']);
+$routes->post('login', [LoginController::class, 'loginAction']);
+// own routes
+$routes->get('/', [Home::class, 'dashboard']);
+$routes->get('/credits', [Home::class, 'credits']);
+
+$routes->get('/admin', [Admin::class, 'userAdminPage']);
+$routes->post('/admin', [Admin::class, 'saveUser']);
+$routes->delete('/admin', [Admin::class, 'removeUser']);
+$routes->get('/admin/idx', [Admin::class, 'index']);
+
+$routes->get('/generateToken', [Home::class, 'generateNewToken']);
+// $routes->get('register', [AuthUser::class, 'register']);
 
 /*
  * --------------------------------------------------------------------

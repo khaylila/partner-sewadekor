@@ -133,7 +133,7 @@ class Auth extends ShieldAuth
      * --------------------------------------------------------------------
      * Determines whether users can register for the site.
      */
-    public bool $allowRegistration = true;
+    public bool $allowRegistration = false;
 
     /**
      * --------------------------------------------------------------------
@@ -220,7 +220,7 @@ class Auth extends ShieldAuth
      */
     public array $validFields = [
         'email',
-        'username',
+        // 'username',
     ];
 
     /**
@@ -337,7 +337,8 @@ class Auth extends ShieldAuth
      *
      * @var class-string<UserModel>
      */
-    public string $userProvider = 'CodeIgniter\Shield\Models\UserModel';
+    // public string $userProvider = 'CodeIgniter\Shield\Models\UserModel';
+    public string $userProvider = 'App\Models\UserModel';
 
     /**
      * Returns the URL that a user should be redirected
