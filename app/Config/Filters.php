@@ -42,7 +42,7 @@ class Filters extends BaseConfig
             // 'tokens',
             // 'chain',
             // 'honeypot',
-            // 'csrf',
+            'csrf',
             // 'invalidchars',
             // 'auth-rates',
         ],

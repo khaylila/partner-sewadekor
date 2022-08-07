@@ -97,6 +97,25 @@ class User extends ShieldUser
         return $identityModel->save($identity);
     }
 
+    public function saveNewPassword(): bool
+    {
+        $identity = $this->getEmailIdentity();
+        if (empty($this->password)) {
+            return false;
+        }
+        $identity->secret2 = service('passwords')->hash($this->password);
+        $identityModel = model(UserIdentityModel::class);
+        return $identityModel->save($identity);
+    }
+
+    public function rollbackPassword(): bool
+    {
+        $identity = $this->getEmailIdentity();
+        $identity->secret2 = $this->password_hash;
+        $identityModel = model(UserIdentityModel::class);
+        return $identityModel->save($identity);
+    }
+
     public function findUserByGroup($group)
     {
         $groupModel = model(GroupModel::class);

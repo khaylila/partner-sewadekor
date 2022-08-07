@@ -4,27 +4,27 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-header">
-                <h4>Tambah Admin</h4>
+                <h4>Tambah Partner</h4>
             </div>
-            <form method="POST" action="/admin">
+            <form method="POST" action="/partner">
                 <div class="card-body">
                     <div class="form-group">
                         <label>Nama</label>
-                        <input type="text" class="form-control" id="nameAdmin" name="nameAdmin" value="" placeholder="Masukkan nama admin" tabindex="1" required autofocus>
+                        <input type="text" class="form-control" id="nameAdmin" name="nameAdmin" value="" placeholder="Masukkan nama partner" tabindex="1" required autofocus>
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="email" name="emailAdmin" id="emailAdmin" class="form-control" required value="" placeholder="Masukkan email admin" tabindex="2">
+                        <input type="email" name="emailAdmin" id="emailAdmin" class="form-control" required value="" placeholder="Masukkan email partner" tabindex="2">
                     </div>
                     <div class="form-group">
                         <label>Role</label>
                         <select class="form-control" name="roleAdmin" id="roleAdmin" tabindex="3">
-                            <option value="admin" selected>Admin</option>
+                            <option value="partner" selected>Partner</option>
                         </select>
                     </div>
                 </div>
                 <div class="card-footer text-right">
-                    <button class="btn btn-primary" id="btnAdminAdd" tabindex="4">Tambah Admin</button>
+                    <button class="btn btn-primary" id="btnAdminAdd" tabindex="4">Tambah Partner</button>
                 </div>
             </form>
         </div>
@@ -32,7 +32,7 @@
     <div class="col-md-8">
         <div class="card">
             <div class="card-header">
-                <h4>Dafar Admin</h4>
+                <h4>Dafar Partner</h4>
             </div>
             <div class="card-body">
                 <table class="table table-hover">
@@ -45,19 +45,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if (count($listUserAdmin) > 0) : ?>
+                        <?php if (count($listUser) > 0) : ?>
                             <?php $i = 1; ?>
-                            <?php foreach ($listUserAdmin as $admin) : ?>
-                                <tr id="user-<?= $admin['user_id']; ?>">
+                            <?php foreach ($listUser as $partner) : ?>
+                                <tr id="user-<?= $partner['user_id']; ?>">
                                     <th class="text-center" scope="row"><?= $i++; ?></th>
-                                    <td class="text-left"><?= $admin['name']; ?></td>
-                                    <td><?= $admin['email']; ?></td>
-                                    <td class="text-center"><a class="reset-password" href="#"><i class="fas fa-key"></i></a><?= strtolower($admin['name']) !== 'admin' ? '<a class="remove-user" href="#"><i class="fas fa-trash"></i></a>' : ''; ?></td>
+                                    <td class="text-left"><?= $partner['name']; ?></td>
+                                    <td><?= $partner['email']; ?></td>
+                                    <td class="text-center"><a class="reset-password" href="#"><i class="fas fa-key"></i></a><?= strtolower($partner['name']) !== 'partner' ? '<a class="remove-user" href="#"><i class="fas fa-trash"></i></a>' : ''; ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php else : ?>
                             <tr>
-                                <td colspan="4" class="text-center">Admin tidak ditemukan!</td>
+                                <td colspan="4" class="text-center">Partner tidak ditemukan!</td>
                             </tr>
                         <?php endif; ?>
                     </tbody>
@@ -66,5 +66,5 @@
         </div>
     </div>
 </div>
-<script src="/assets/page/admin.js"></script>
+<script src="/assets/page/partner.js"></script>
 <?= $this->endSection() ?>

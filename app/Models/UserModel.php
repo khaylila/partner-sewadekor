@@ -27,6 +27,9 @@ class UserModel extends ShieldUserModel
         endforeach;
         // return $this->find($userGroupId);
         $userGroupList = [];
+        if (count($userGroupId) === 0) {
+            return [];
+        }
         foreach ($this->find($userGroupId) as $userList) {
             $tempUser = $userList->getEmailIdentity()->toArray();
             $tempUser['email'] = $tempUser['secret'];

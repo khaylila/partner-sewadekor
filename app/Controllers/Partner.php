@@ -6,52 +6,27 @@ use App\Entities\User;
 use App\Models\UserModel;
 use CodeIgniter\API\ResponseTrait;
 
-class Admin extends BaseController
+class Partner extends BaseController
 {
     use ResponseTrait;
 
-    public function userAdminPage()
+    public function userPage()
     {
-        // $users = model(UserModel::class);
-        // $userData = $users->find(82);
-        // $oldPassword = $userData->getPasswordHash();
-        // $newPassword = service('passwords')->hash('hujanTurun');
-        // // dd($userData->getPasswordHash());
-        // $userData->setPassword('hujanTurun');
-        // d($oldPassword);
-        // dd($userData);
-        // dd($userData);
-
-        // // checkRole
-        // if (!auth()->user()->inGroup('superadmin')) {
-        //     return $this->failUnauthorized();
-        // }
-
-        // $password = (new Home)->generatePassword();
-
-        // $userData->setPassword('');
-        // emailcode zzxpkldtiizguord
-        // $home = new Home;
-        // dd($home->generatePassword(16, '', true));
-        // dd(csrf_field());
-        // dd(model(UserModel::class)->find(78)->getEmailIdentity());
-        // $user = model(UserModel::class)->findById(59);
-        // dd(model(UserModel::class)->find(57)->addGroup('admin')->inGroup('admin'));
-        $userAdminList = model(UserModel::class)->findUserByGroup('admin');
-        return view('admin/add', [
-            'title' => 'Admin Page',
+        $userList = model(UserModel::class)->findUserByGroup('partner');
+        return view('partner/index', [
+            'title' => 'Partner Page',
             'lib' => [],
             'breadcrumb' => array_reverse([
                 [
-                    'title' => 'Admin',
+                    'title' => 'Partner',
                 ],
                 [
-                    'title' => 'Tambah Admin',
-                    'href' => '/admin/add',
+                    'title' => 'List',
+                    'href' => '/partner',
                 ]
             ]),
-            'active' => 'adminPage',
-            'listUserAdmin' => $userAdminList,
+            'active' => 'partnerPage',
+            'listUser' => $userList,
         ]);
     }
 

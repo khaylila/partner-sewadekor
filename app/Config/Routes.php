@@ -5,6 +5,7 @@ namespace Config;
 use App\Controllers\Admin;
 use App\Controllers\AuthUser;
 use App\Controllers\Home;
+use App\Controllers\Partner;
 use CodeIgniter\Shield\Controllers\LoginController;
 
 // Create a new instance of our RouteCollection class.
@@ -52,10 +53,13 @@ $routes->get('/credits', [Home::class, 'credits']);
 
 $routes->get('/admin', [Admin::class, 'userAdminPage']);
 $routes->post('/admin', [Admin::class, 'saveUser']);
+$routes->put('/admin', [Admin::class, 'resetPassword']);
 $routes->delete('/admin', [Admin::class, 'removeUser']);
+
 $routes->get('/admin/idx', [Admin::class, 'index']);
 
-$routes->get('/generateToken', [Home::class, 'generateNewToken']);
+$routes->get('/partner', [Partner::class, 'userPage']);
+// $routes->get('/email', [Home::class, 'saveEmailDetail']);
 // $routes->get('register', [AuthUser::class, 'register']);
 
 /*

@@ -8,15 +8,23 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-            <li class="nav-item">
+            <li class="nav-item <?= $active == 'dashboard' ? "active" : ""; ?>">
                 <a href="/" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
             </li>
 
             <li class="menu-header">Admin</li>
-            <li class="nav-item dropdown active">
+            <li class="nav-item dropdown <?= $active == 'adminPage' ? "active" : ""; ?>">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Admin</span></a>
                 <ul class="dropdown-menu">
-                    <li class="active"><a class="nav-link" href="/admin">List</a></li>
+                    <li class="<?= $active == 'adminPage' ? "active" : ""; ?>"><a class="nav-link" href="/admin">List</a></li>
+                </ul>
+            </li>
+
+            <li class="menu-header">Partner</li>
+            <li class="nav-item dropdown <?= $active == 'partnerPage' ? "active" : ""; ?>">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Partner</span></a>
+                <ul class="dropdown-menu">
+                    <li class="<?= $active == 'partnerPage' ? "active" : ""; ?>"><a class="nav-link" href="/partner">List</a></li>
                 </ul>
             </li>
 

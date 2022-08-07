@@ -37,6 +37,10 @@ class AuthGroups extends ShieldAuthGroups
             'title'       => 'Developer',
             'description' => 'Site programmers.',
         ],
+        'partner' => [
+            'title'       => 'Partner',
+            'description' => 'User who selling product.',
+        ],
         'user' => [
             'title'       => 'User',
             'description' => 'General users of the site. Often customers.',
@@ -119,6 +123,9 @@ class AuthGroups extends ShieldAuthGroups
             // 'users.edit',
             // 'beta.access',
             // 'user.*',
+        ],
+        'partner' => [
+            'partner.*',
         ],
         // 'user' => [
         //     // otherRules
