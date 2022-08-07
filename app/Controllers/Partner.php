@@ -36,7 +36,7 @@ class Partner extends BaseController
             return $this->failForbidden('action forbidden');;
         }
         // checkRole
-        if (!auth()->user()->inGroup('superadmin')) {
+        if (!auth()->user()->can('partner.resetPassword')) {
             return $this->failUnauthorized();
         }
 

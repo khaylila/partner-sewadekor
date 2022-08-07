@@ -125,3 +125,8 @@ nb-configuration.xml
 /phpunit*.xml
 /.phpunit.*.cache
 
+# stisla
+# /node_modules/
+# /dist/node_modules/
+# /pages
+
