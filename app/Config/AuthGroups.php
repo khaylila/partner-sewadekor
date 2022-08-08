@@ -78,6 +78,7 @@ class AuthGroups extends ShieldAuthGroups
         'superadmin.readAdmin' => 'Can read admin',
         'superadmin.updateAdmin' => 'Can update admin',
         'superadmin.deleteAdmin' => 'Can delete admin',
+        'admin.resetPassword' => 'Can reset password',
         'admin.createPartner' => 'Can create partner',
         'admin.readPartner' => 'Can read partner',
         'admin.updatePartner' => 'Can update partner',

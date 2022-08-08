@@ -122,6 +122,8 @@ function removeLoading() {
 
 function errorHandler(xhr) {
   if (xhr.status === 400) {
+    $(".is-valid,.is-invalid").removeClass("is-valid is-invalid");
+    $("[id$='Feedback']").remove();
     $.each(xhr.responseJSON.errors, function (index, value) {
       isInvalid(index, value);
     });
@@ -139,3 +141,17 @@ function errorHandler(xhr) {
     });
   }
 }
+
+$("#logout").click((e) => {
+  e.preventDefault();
+  Swal.fire({
+    title: "Logout?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Logout",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      location.replace("/logout");
+    }
+  });
+});

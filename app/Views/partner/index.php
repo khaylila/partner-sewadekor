@@ -10,21 +10,21 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label>Nama</label>
-                        <input type="text" class="form-control" id="nameAdmin" name="nameAdmin" value="" placeholder="Masukkan nama partner" tabindex="1" required autofocus>
+                        <input type="text" class="form-control" id="namePartner" name="namePartner" value="" placeholder="Masukkan nama partner" tabindex="1" required autofocus>
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="email" name="emailAdmin" id="emailAdmin" class="form-control" required value="" placeholder="Masukkan email partner" tabindex="2">
+                        <input type="email" name="emailPartner" id="emailPartner" class="form-control" required value="" placeholder="Masukkan email partner" tabindex="2">
                     </div>
                     <div class="form-group">
                         <label>Role</label>
-                        <select class="form-control" name="roleAdmin" id="roleAdmin" tabindex="3">
+                        <select class="form-control" name="rolePartner" id="rolePartner" tabindex="3">
                             <option value="partner" selected>Partner</option>
                         </select>
                     </div>
                 </div>
                 <div class="card-footer text-right">
-                    <button class="btn btn-primary" id="btnAdminAdd" tabindex="4">Tambah Partner</button>
+                    <button class="btn btn-primary" id="btnAdd" tabindex="4">Tambah Partner</button>
                 </div>
             </form>
         </div>

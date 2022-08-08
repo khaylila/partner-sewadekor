@@ -51,14 +51,17 @@ $routes->post('login', [LoginController::class, 'loginAction']);
 $routes->get('/', [Home::class, 'dashboard']);
 $routes->get('/credits', [Home::class, 'credits']);
 
+// admin
 $routes->get('/admin', [Admin::class, 'userAdminPage']);
 $routes->post('/admin', [Admin::class, 'saveUser']);
 $routes->put('/admin', [Admin::class, 'resetPassword']);
 $routes->delete('/admin', [Admin::class, 'removeUser']);
 
-$routes->get('/admin/idx', [Admin::class, 'index']);
-
+// partner
 $routes->get('/partner', [Partner::class, 'userPage']);
+$routes->post('/partner', [Partner::class, 'saveUser']);
+$routes->put('/partner', [Partner::class, 'resetPassword']);
+$routes->delete('/partner', [Partner::class, 'removeUser']);
 // $routes->get('/email', [Home::class, 'saveEmailDetail']);
 // $routes->get('register', [AuthUser::class, 'register']);
 

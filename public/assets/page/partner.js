@@ -11,7 +11,7 @@ $(".reset-password").click(function (e) {
     if (result.isConfirmed) {
       doAjax(
         {
-          url: "/admin",
+          url: "/partner",
           method: "POST",
           data: {
             _method: "PUT",
@@ -38,7 +38,7 @@ $(".remove-user").click(function (e) {
     if (result.isConfirmed) {
       doAjax(
         {
-          url: "/admin",
+          url: "/partner",
           method: "POST",
           data: {
             _method: "DELETE",
@@ -52,7 +52,14 @@ $(".remove-user").click(function (e) {
 });
 
 // addUser
-$("#btnAdminAdd").click(function (e) {
+$("#btnAdd").click(function (e) {
   e.preventDefault();
-  checkValidation({ type: "POST", url: "/admin", data: $(this).parents("form").serialize() }, redirectUrl);
+  doAjax(
+    {
+      url: "/partner",
+      method: "POST",
+      data: $(this).parents("form").serialize(),
+    },
+    redirectUrl
+  );
 });

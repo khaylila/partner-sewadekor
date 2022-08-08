@@ -43,24 +43,43 @@ class Home extends BaseController
 
         $email->setFrom(service('settings')->get('Email.fromEmail'), service('settings')->get('Email.fromName'));
         $email->setTo($data['email']);
-
+        if ($data['subject'] == 'newAcc') {
+            $data['subject'] = "New Account Information for swd.id";
+            $data['message'] = "
+                swd.id New Account Information
+                <br>
+                email / username: " . $data["email"] . "
+                <br>
+                password: " . $data["password"] . "
+                <br>
+                <br>
+                We strongly suggest you to login to " . base_url() . "/profile/ account and change your password immediately!
+                <br>
+                ~~
+                <br>
+                If it's not you, you can report to:
+                <br>
+                <a href='mailto:abuse@swd.id'>abuse@swd.id</a>
+            ";
+        } else {
+            $data['subject'] = "Reset Password Information for swd.id";
+            $data['message'] = "
+                swd.id Reset Password Information
+                <br>
+                Your new password: " . $data["password"] . "
+                <br>
+                <br>
+                We strongly suggest you to login to " . base_url() . "/profile/ account and change your password immediately!
+                <br>
+                ~~
+                <br>
+                If it's not you, you can report to:
+                <br>
+                <a href='mailto:abuse@swd.id'>abuse@swd.id</a>
+            ";
+        }
         $email->setSubject($data['subject']);
-        $email->setMessage("
-            Sewadekor.id Client Account
-            <br>
-            email / username: " . $data["email"] . "
-            <br>
-            password: " . $data["password"] . "
-            <br>
-            <br>
-            We strongly suggest you to login to " . base_url() . "/profile/ account and change your password immediately!
-            <br>
-            ~~
-            <br>
-            If it's not you, you can report to:
-            <br>
-            <a href='mailto:abuse@sewadekor.id'>abuse@sewadekor.id</a>
-        ");
+        $email->setMessage($data['message']);
         if (!$email->send()) {
             log_message('warning', json_encode($email->printDebugger()) . '|' . json_encode($data));
             return false;
@@ -116,7 +135,7 @@ class Home extends BaseController
     {
         auth()->logout();
         dd(auth()->loggedIn());
-        // dd(service('settings')->set('App.baseURL', 'http://partner.sewadekor.id'));
+        // dd(service('settings')->set('App.baseURL', 'http://partner.swd.id'));
         // dd(service('settings')->forget('App.baseURL'));
         // dd(setting('Auth.recordActiveDate'));
         // dd(auth('session')->getAuthenticator());

@@ -9,6 +9,8 @@ use CodeIgniter\Shield\Authentication\Authenticators\Session;
 use CodeIgniter\Shield\Authorization\Traits\Authorizable;
 use CodeIgniter\Shield\Authentication\Traits\HasAccessTokens;
 use App\Models\GroupModel;
+use CodeIgniter\Shield\Models\LoginModel;
+use CodeIgniter\HTTP\IncomingRequest;
 
 class User extends ShieldUser
 {
@@ -108,12 +110,28 @@ class User extends ShieldUser
         return $identityModel->save($identity);
     }
 
-    public function rollbackPassword(): bool
+    // public function rollbackPassword(): bool
+    // {
+    //     $identity = $this->getEmailIdentity();
+    //     $identity->secret2 = $this->password_hash;
+    //     $identityModel = model(UserIdentityModel::class);
+    //     return $identityModel->save($identity);
+    // }
+
+    public function getLastLogin(): string
     {
-        $identity = $this->getEmailIdentity();
-        $identity->secret2 = $this->password_hash;
-        $identityModel = model(UserIdentityModel::class);
-        return $identityModel->save($identity);
+        $time = model(LoginModel::class)->select('date')->where('user_id', $this->id)->where('ip_address', $_SERVER['REMOTE_ADDR'])->orderBy('id', 'DESC')->where('success', 1)->first()->date ?? 0;
+        if ($time !== 0) {
+            $time = time() - $time->getTimestamp();
+            if ($time < 60) {
+                return $time . ' sec';
+            } elseif ($time < 3600) {
+                return intval($time / 60) . ' min';
+            } else {
+                return intval($time / 3600) . ' hrs';
+            }
+        }
+        return '0 min';
     }
 
     public function findUserByGroup($group)
