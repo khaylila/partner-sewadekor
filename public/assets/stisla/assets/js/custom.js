@@ -11,48 +11,74 @@ function refreshTokenHash(hash) {
   $('meta[name="X-CSRF-TOKEN"]').prop("content", hash);
 }
 
-function reqAjax(data) {
+function ajaxWithFiles(data) {
   return new Promise((resolve, reject) => {
     $.ajax({
-      url: data.url,
-      method: data.method,
+      async: true,
+      method: "POST",
+      url: "/account/merchant",
+      data: formData,
+      cache: false,
+      processData: false,
+      contentType: false,
       headers: {
         "X-Requested-With": "XMLHttpRequest",
         "X-CSRF-TOKEN": $('meta[name="X-CSRF-TOKEN"]').prop("content"),
       },
-      data: data.data,
       success: function (data) {
+        console.log(data);
+        console.table(data);
+      },
+      error: function (xhr) {
+        console.log(xhr.responseText);
+      },
+    });
+  });
+}
+
+function reqAjax(data) {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      url: data.url,
+      method: data.method ?? "GET",
+      headers: {
+        "X-Requested-With": "XMLHttpRequest",
+        "X-CSRF-TOKEN": $('meta[name="X-CSRF-TOKEN"]').prop("content"),
+      },
+      data: data.data ?? {},
+      async: true,
+      cache: false,
+      processData: false,
+      contentType: false,
+      success: function (data) {
+        console.log(data);
         resolve(data);
       },
       error: function (xhr) {
+        console.log(xhr);
         reject(xhr);
       },
     });
   });
 }
 
-async function doAjax(data, success) {
+async function doAjax(data, success, error) {
   loading();
   try {
     const ajaxRes = await reqAjax(data);
-    Swal.fire({
-      title: "Success!",
-      text: ajaxRes.message,
-      icon: "success",
-      allowOutsideClick: false,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        refreshTokenHash(ajaxRes.hash);
-        success.apply(this, [ajaxRes]);
-      }
-    });
+    if (success) {
+      success.apply(this, [ajaxRes]);
+    }
   } catch (err) {
-    refreshTokenHash(err.hash);
-    console.log(err);
-    errorHandler(err);
+    if (!error) {
+      errorHandler(err);
+    } else {
+      error.apply(this, [err]);
+    }
   }
   removeLoading();
 }
+
 function isInvalid(id, value) {
   $(`#${id}`)
     .addClass("is-invalid")
@@ -60,8 +86,18 @@ function isInvalid(id, value) {
 }
 
 function redirectUrl(data) {
-  console.log(data);
-  window.location.href = data ? data.url : window.location.href;
+  data = data.responseJSON ?? data;
+  Swal.fire({
+    title: data.title ?? "Success!",
+    text: data.message,
+    icon: data.icon ?? "success",
+    allowOutsideClick: false,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      refreshTokenHash(data.hash);
+      window.location.href = data.url ?? window.location.href;
+    }
+  });
 }
 
 function checkValidation(ajax, success) {
@@ -105,7 +141,7 @@ function checkValidation(ajax, success) {
 
 function loading() {
   $("#app")
-    .prepend(`<div id="loading" class="position-fixed top-0 left-0" style="z-index: 900;">
+    .prepend(`<div id="loading" class="position-fixed top-0 left-0" style="z-index: 1900;">
         <div class="vw-100 vh-100 position-relative d-flex align-items-center justify-content-center">
             <div style="background-color: #eee; opacity: .4; z-index: 10;" class="position-absolute vw-100 vh-100"></div>
             <div class="d-flex flex-column justify-content-center position-absolute" style="z-index: 20;">
@@ -124,10 +160,10 @@ function errorHandler(xhr) {
   if (xhr.status === 400) {
     $(".is-valid,.is-invalid").removeClass("is-valid is-invalid");
     $("[id$='Feedback']").remove();
-    $.each(xhr.responseJSON.errors, function (index, value) {
+    $.each(xhr.responseJSON.messages.errors, function (index, value) {
       isInvalid(index, value);
     });
-    refreshTokenHash(xhr.responseJSON.tokenHash);
+    refreshTokenHash(xhr.responseJSON.messages.tokenHash);
   } else {
     Swal.fire({
       title: "Error " + xhr.status,
@@ -155,3 +191,7 @@ $("#logout").click((e) => {
     }
   });
 });
+
+function getSelect2(data) {
+  $("#" + data.id).select2(data.option);
+}

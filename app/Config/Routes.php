@@ -3,9 +3,11 @@
 namespace Config;
 
 use App\Controllers\Admin;
+use App\Controllers\ApiController;
 use App\Controllers\AuthUser;
 use App\Controllers\Home;
 use App\Controllers\Partner;
+use App\Controllers\Merchant;
 use CodeIgniter\Shield\Controllers\LoginController;
 
 // Create a new instance of our RouteCollection class.
@@ -48,7 +50,15 @@ $routes->set404Override();
 $routes->get('login', [AuthUser::class, 'login']);
 $routes->post('login', [LoginController::class, 'loginAction']);
 // own routes
-$routes->get('/', [Home::class, 'dashboard']);
+if (service('auth')->loggedIn()) {
+    if (service('auth')->user()->inGroup('partner')) {
+        $routes->get('/', [Home::class, 'partnerDashboard']);
+    } else {
+        $routes->get('/', [Home::class, 'adminDashboard']);
+    }
+} else {
+    $routes->get('/', [AuthUser::class, 'login']);
+}
 $routes->get('/credits', [Home::class, 'credits']);
 
 // admin
@@ -64,6 +74,20 @@ $routes->put('/partner', [Partner::class, 'resetPassword']);
 $routes->delete('/partner', [Partner::class, 'removeUser']);
 // $routes->get('/email', [Home::class, 'saveEmailDetail']);
 // $routes->get('register', [AuthUser::class, 'register']);
+
+$routes->get('/account/merchant', [Merchant::class, 'viewPartnerIdentity']);
+$routes->post('/account/merchant', [Merchant::class, 'savePartnerIdentity']);
+$routes->put('/account/merchant', [Merchant::class, 'saveEditPartnerIdentity']);
+$routes->post('/account/merchant/check', [Merchant::class, 'checkIdentity']);
+$routes->post('/account/merchant/logo', [Merchant::class, 'saveMerchantLogo']);
+
+$routes->group('api', static function ($routes) {
+    $routes->get('provinces', [ApiController::class, 'listProvinces']);
+    $routes->get('regencies/(:num)', [ApiController::class, 'listRegencies']);
+    $routes->get('districts/(:num)', [ApiController::class, 'listDistricts']);
+    $routes->get('urban/(:num)', [ApiController::class, 'listUrbans']);
+    $routes->get('regencies/find', [ApiController::class, 'findRegencies']);
+});
 
 /*
  * --------------------------------------------------------------------

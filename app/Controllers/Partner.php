@@ -10,6 +10,11 @@ class Partner extends BaseController
 {
     use ResponseTrait;
 
+    // password ffxc123k3q865v1p
+    // public function __construct()
+    // {
+    // }
+
     public function userPage()
     {
         if (!auth()->user()->inGroup('admin')) {
@@ -151,6 +156,7 @@ class Partner extends BaseController
             $users->delete($userId, true);
             return $this->failServerError();
         }
+        service('setting')->set('Partner.identity', false, "user:" . $userId);
 
         return $this->respondCreated(['status' => 'success', 'message' => 'User ' . $this->request->getPost('fullname') . ' dengan role partner berhasil dibuat.', 'url' => base_url() . '/partner']);
     }
@@ -179,6 +185,7 @@ class Partner extends BaseController
 
         if (!$users->delete($userId[1])) {
             log_message('warning', 'user ' . $userId[1] . ' gagal dihapus. ' . json_encode($users->errors()));
+            return $this->failServerError();
         }
         return $this->respondDeleted(['status' => 'success', 'message' => 'User ' . $userData->name . ' berhasil dihapus.', 'url' => base_url() . '/partner']);
     }

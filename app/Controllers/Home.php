@@ -87,15 +87,35 @@ class Home extends BaseController
         return true;
     }
 
-    public function dashboard()
+    public function adminDashboard()
     {
         return view('home/dashboard', [
-            'title' => 'Dashboard',
+            'title' => 'Admin Dashboard',
             'lib' => [],
             'breadcrumb' => array_reverse([
                 [
                     'title' => 'Dashboard',
                     'href' => '/dashboard',
+                ]
+            ]),
+            'active' => 'dashboard',
+        ]);
+    }
+
+    public function partnerDashboard()
+    {
+        if (!setting()->get('Partner.identity', 'user:' . user_id())) {
+            $lib = ['jquerySparkline', 'chartJs', 'owlCarousel', 'summernote', 'jqueryChocolat'];
+        }
+        return view('home/partnerDashboard', [
+            'sectionHeader' => false,
+            'title' => 'Partner Dashboard',
+            'lib' => $lib ?? [],
+            'breadcrumb' => array_reverse([
+                ['title' => 'Dashboard'],
+                [
+                    'title' => 'Index',
+                    'href' => '/',
                 ]
             ]),
             'active' => 'dashboard',

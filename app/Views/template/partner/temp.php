@@ -30,29 +30,35 @@
     <?php if (in_array("select2", $lib)) : ?>
         <link rel="stylesheet" href="/assets/stisla/node_modules/select2/dist/css/select2.min.css">
     <?php endif; ?>
+    <?php if (in_array("dropzone", $lib)) : ?>
+        <link rel="stylesheet" href="/assets/stisla/node_modules/dropzone/dist/min/dropzone.min.css">
+    <?php endif; ?>
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="/assets/stisla/assets/css/style.css">
     <link rel="stylesheet" href="/assets/stisla/assets/css/components.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
 </head>
 
 <body>
     <div id="app">
         <div class="main-wrapper">
-            <?= $this->include('template/navbar'); ?>
-            <?= $this->include('template/sidebar'); ?>
+            <?= $this->include('template/partner/navbar'); ?>
+            <?= $this->include('template/partner/sidebar'); ?>
             <!-- Main Content -->
             <div class="main-content">
                 <section class="section">
-                    <div class="section-header">
-                        <h1><?= $title; ?></h1>
-                        <!-- Breadcrumb -->
-                        <div class="section-header-breadcrumb">
-                            <?php foreach ($breadcrumb as $subtitle) : ?>
-                                <div class="breadcrumb-item"><?= isset($subtitle['href']) ? '<a href="/admin/add">' . $subtitle['title'] . '</a>' : $subtitle['title']; ?></div>
-                            <?php endforeach; ?>
+                    <?php if (!isset($sectionHeader)) : ?>
+                        <div class="section-header">
+                            <h1><?= $title; ?></h1>
+                            <!-- Breadcrumb -->
+                            <div class="section-header-breadcrumb">
+                                <?php foreach ($breadcrumb as $subtitle) : ?>
+                                    <div class="breadcrumb-item"><?= isset($subtitle['href']) ? '<a href="/admin/add">' . $subtitle['title'] . '</a>' : $subtitle['title']; ?></div>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
-                    </div>
+                    <?php endif; ?>
                     <div class="section-body">
                         <?= $this->renderSection('content'); ?>
                     </div>
@@ -60,7 +66,7 @@
             </div>
             <footer class="main-footer">
                 <div class="footer-left">
-                    Copyright &copy; 2022 <div class="bullet"></div> Design By <a href="https://www.instagram.com/roiyan_r/">Khaylila</a>
+                    Copyright &copy; 2022 <div class="bullet"></div> Created By <a href="https://www.instagram.com/roiyan_r/">Khaylila</a>
                 </div>
                 <div class="footer-right">
                     1.0.0
@@ -96,6 +102,14 @@
     <?php if (in_array("select2", $lib)) : ?>
         <script src="/assets/stisla/node_modules/select2/dist/js/select2.full.min.js"></script>
     <?php endif; ?>
+    <?php if (in_array("cleave", $lib)) : ?>
+        <script src="/assets/stisla/node_modules/cleave.js/dist/cleave.min.js"></script>
+        <script src="/assets/stisla/node_modules/cleave.js/dist/addons/cleave-phone.id.js"></script>
+    <?php endif; ?>
+    <?php if (in_array("dropzone", $lib)) : ?>
+        <script src="/assets/stisla/node_modules/dropzone/dist/min/dropzone.min.js"></script>
+    <?php endif; ?>
+
     <!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
 
     <!-- Template JS File -->
