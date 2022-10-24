@@ -75,6 +75,9 @@ $routes->delete('/partner', [Partner::class, 'removeUser']);
 // $routes->get('/email', [Home::class, 'saveEmailDetail']);
 // $routes->get('register', [AuthUser::class, 'register']);
 
+// product
+$routes->get('/product', [Product::class, '']);
+
 $routes->get('/account/merchant', [Merchant::class, 'viewPartnerIdentity']);
 $routes->post('/account/merchant', [Merchant::class, 'savePartnerIdentity']);
 $routes->put('/account/merchant', [Merchant::class, 'saveEditPartnerIdentity']);

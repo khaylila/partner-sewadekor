@@ -13,6 +13,17 @@
                 <a href="/" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
             </li>
 
+            <li class="menu-header">Product</li>
+            <li class="nav-item dropdown <?= $active[0] == 'product' ? "active" : ""; ?>">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-list-ul"></i><span>Product</span></a>
+                <ul class="dropdown-menu">
+                    <li class="<?= $active[1] ?? null == 'merchant' ? "active" : ""; ?>"><a class="nav-link" href="/product/add">Add</a></li>
+                </ul>
+                <ul class="dropdown-menu">
+                    <li class="<?= $active[1] ?? null == 'merchant' ? "active" : ""; ?>"><a class="nav-link" href="/product">List</a></li>
+                </ul>
+            </li>
+
             <li class="menu-header">Account</li>
             <li class="nav-item dropdown <?= $active[0] == 'account' ? "active" : ""; ?>">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Account</span></a>

@@ -63,7 +63,7 @@ class Partner extends BaseController
             return $this->failNotFound();
         endif;
 
-        $homeCont = new Home;
+        $homeCont = new Home();
 
         $user = model(UserModel::class)->find($userId[1]);
         $userData = $user->getEmailIdentity();
