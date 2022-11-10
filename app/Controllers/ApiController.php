@@ -43,4 +43,9 @@ class ApiController extends BaseController
         }
         return $cover;
     }
+
+    public function listCategory()
+    {
+        // add get list from category
+    }
 }

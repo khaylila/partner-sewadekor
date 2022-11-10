@@ -88,13 +88,6 @@
                             </div>
                         </div>
                     <?php endif; ?>
-                    <!-- removed soon -->
-                    <!-- <div class="form-group files position-relative">
-                        <img class="partner-logo text-center" src="https://i.imgur.com/VXWKoBD.png" alt="">
-                        <label class="my-auto">Unggah Logo Perusahaan</label>
-                        <input id="factoryLogo" name="factoryLogo" type="file" class="form-control" required accept="image/*" />
-                    </div> -->
-                    <!-- <img src="" id="imgTest" alt=""> -->
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
@@ -139,34 +132,6 @@
 <?php endif; ?>
 <?php if ($checkIdentity) : ?>
     <script src=" /assets/page/partnerWithIdentity.js"></script>
-    <script>
-        // $(document).ready(function() {
-        //     getSelect2({
-        //         id: "province",
-        //         option: {
-        //             ajax: {
-        //                 delay: 300,
-        //                 url: "/api/provinces/id",
-        //                 dataType: "json",
-        //                 data: function(params) {
-        //                     var query = {
-        //                         query: 35,
-        //                     };
-        //                     console.log(query);
-        //                     return query;
-        //                 },
-        //                 processResults: function(data) {
-        //                     console.log(data);
-        //                     return {
-        //                         results: data.provinces
-        //                     };
-        //                 },
-        //             },
-        //             placeholder: "Pilih Provinsi",
-        //         },
-        //     });
-        // });
-    </script>
 <?php else : ?>
     <script src=" /assets/page/partnerIdentity.js"></script>
 <?php endif; ?>

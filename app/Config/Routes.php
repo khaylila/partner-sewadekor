@@ -7,6 +7,7 @@ use App\Controllers\ApiController;
 use App\Controllers\AuthUser;
 use App\Controllers\Home;
 use App\Controllers\Partner;
+use App\Controllers\Product;
 use App\Controllers\Merchant;
 use CodeIgniter\Shield\Controllers\LoginController;
 
@@ -76,7 +77,8 @@ $routes->delete('/partner', [Partner::class, 'removeUser']);
 // $routes->get('register', [AuthUser::class, 'register']);
 
 // product
-$routes->get('/product', [Product::class, '']);
+$routes->get('/product', [Product::class, 'index']);
+$routes->get('/product/add', [Product::class, 'add']);
 
 $routes->get('/account/merchant', [Merchant::class, 'viewPartnerIdentity']);
 $routes->post('/account/merchant', [Merchant::class, 'savePartnerIdentity']);

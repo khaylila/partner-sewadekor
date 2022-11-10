@@ -1,3 +1,16 @@
+.img-thumb {
+  width: 50px;
+  weight: 50px;
+  border: 1px solid #eee;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 /* .files:before {
   position: absolute;
   bottom: 60px;
